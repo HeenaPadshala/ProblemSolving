@@ -1,0 +1,68 @@
+﻿@using ProblemSolving.Models;
+@model GetMonthNameByNumber
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    label.error.fail-alert {
+        border: 2px solid red;
+        border-radius: 4px;
+        line-height: 1;
+        padding: 2px 0 6px 6px;
+        background: #ffe6eb;
+    }
+
+    input.valid.success-alert {
+        border: 2px solid #4CAF50;
+        color: green;
+    }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
+<div class="container">
+    <h2>Convert Number to Corresponding Month Name</h2>
+    @using (Html.BeginForm("Index", "GetMonthNameByNumber", FormMethod.Post, new { @id = "myform" }))
+    {
+        <div class="form-group">
+            <label for="monthNumber">Please enter month number below </label>
+            @Html.TextBoxFor(m => m.month, null, new { @class = "form-control", @id = "monthNumber", @minValue = 1, @maxValue = 12 })
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.fullMonthName))
+    {
+        <div>Full Month : @Model.fullMonthName</div>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.fullMonthName))
+    {
+        <div>Abbreviated Month : @Model.AbbreviatedMonthName</div>
+    }
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            // Validate monthNumber
+            $('#myform').validate({ // initialize the plugin
+                errorClass: "error fail-alert",
+                validClass: "valid success-alert",
+                rules: {
+                    month: {
+                        required: true,
+                        min: 1,
+                        max: 12,
+                        number: true,
+                    }
+                },
+                messages: {
+                    month: {
+                        min: "Please enter month value between 1 to 12.",
+                        max: "Please enter month value between 1 to 12."
+                    },
+                }
+            });
+        });
+    </script>
+}
