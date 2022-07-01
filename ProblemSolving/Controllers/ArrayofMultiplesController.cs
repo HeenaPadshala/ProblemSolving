@@ -7,21 +7,21 @@ using System.Web.Mvc;
 
 namespace ProblemSolving.Controllers
 {
-    public class GetMonthNameByNumberController : Controller
+    public class ArrayofMultiplesController : Controller
     {
-        // GET: Default
+        // GET: ArrayofMultiples
         public ActionResult Index()
         {
-            GetMonthNameByNumber obj = new GetMonthNameByNumber();
+            ArrayofMultiples obj = new ArrayofMultiples();
             return View(obj);
         }
 
         [HttpPost]
-        public ActionResult Index(GetMonthNameByNumber objValue)
+        public ActionResult Index(ArrayofMultiples objValue)
         {
-            if (objValue.month > 0)
+            if (objValue.number > 0 && objValue.length > 0)
             {
-                objValue = objValue.getMonthName(objValue);
+                objValue = objValue.getArrayofMultiples(objValue);
             }
             return View(objValue);
         }

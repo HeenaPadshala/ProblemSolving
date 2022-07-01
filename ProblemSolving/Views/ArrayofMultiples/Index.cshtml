@@ -1,0 +1,85 @@
+﻿@using ProblemSolving.Models;
+@model ArrayofMultiples
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>Get Array of Multiples</h2>
+    <div>
+        <p><span>Create a function that takes two numbers as arguments (</span><code>num</code><span>, </span><code>length</code><span>) and returns an array of multiples of </span><code>num</code><span> until the array length reaches </span><code>length</code><span>.</span></p>
+        <h3><span>Examples</span></h3>
+        <span>ArrayOfMultiples(7, 5) ➞ [7, 14, 21, 28, 35]</span><br />
+        <span>ArrayOfMultiples(12, 10) ➞ [12, 24, 36, 48, 60, 72, 84, 96, 108, 120]</span><br />
+        <span> ArrayOfMultiples(17, 6) ➞ [17, 34, 51, 68, 85, 102]</span><br />
+    </div>
+    <div style="margin-top:20px;">
+        @using (Html.BeginForm("Index", "ArrayofMultiples", FormMethod.Post, new { @id = "myform" }))
+        {
+            <div class="form-group">
+                <label for="number">Please enter number below </label>
+                @Html.TextBoxFor(m => m.number, null, new { @class = "form-control", @id = "number" })
+            </div>
+            <div class="form-group">
+                <label for="length">Please enter length below </label>
+                @Html.TextBoxFor(m => m.length, null, new { @class = "form-control", @id = "length" })
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-default" onclick="clearform()">Clear</button>
+        }
+        @if (Model.arrayResult.Length > 0)
+        {
+            <div id="result">
+                <hr style="border:1px dotted #000!important" />
+                <div class="form-group">
+                    <label>See result below </label>
+                    <div><code>@string.Format("ArrayOfMultiples ({0}, {1}) ➞ [{2}]", @Model.number, @Model.length, string.Join(", ", @Model.arrayResult))</code></div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            $("#collapseMenu").addClass("in");
+            $(".list-group-item").removeClass("active-problem");
+            $("#ArrayofMultiples").addClass("active-problem");
+
+            // Validate monthNumber
+            $('#myform').validate({ // initialize the plugin
+                errorClass: "error fail-alert",
+                validClass: "valid success-alert",
+                rules: {
+                    number: {
+                        required: true,
+                        min: 1,
+                        number: true,
+                    },
+                    length: {
+                        required: true,
+                        min: 1,
+                        length: true,
+                    }
+                },
+                messages: {
+                    number: {
+                        min: "Please enter value greater than 0.",
+                    },
+                    length: {
+                        min: "Please enter value greater than 0.",
+                    },
+                }
+            });
+        });
+
+        function clearform() {
+            $("#number").val(0);
+            $("#length").val(0);
+            $("#result").html("");
+        }
+    </script>
+}

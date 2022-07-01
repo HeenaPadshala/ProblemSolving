@@ -1,0 +1,79 @@
+﻿@using ProblemSolving.Models;
+@model FizzBuzz
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>FizzBuzz Interview Question</h2>
+    <div>
+        <p><span>Create a function that takes a number as an argument and returns </span><code>"Fizz"</code><span>, </span><code>"Buzz"</code><span> or </span><code>"FizzBuzz"</code><span>.</span></p>
+        <ul>
+            <li><span>If the number is a multiple of 3 the output should be </span><code>"Fizz"</code><span>.</span></li>
+            <li><span>If the number given is a multiple of 5, the output should be </span><code>"Buzz"</code><span>.</span></li>
+            <li><span>If the number given is a multiple of both 3 and 5, the output should be </span><code>"FizzBuzz"</code><span>.</span></li>
+            <li><span>If the number is not a multiple of either 3 or 5, the number should be output on its own as shown in the examples below.</span></li>
+            <li><span>The output should always be a string even if it is not a multiple of 3 or 5.</span></li>
+        </ul>
+        <h3><span>Examples</span></h3>
+        <span>FizzBuzz(3) ➞ "Fizz"</span><br />
+        <span>FizzBuzz(5) ➞ "Buzz"</span><br />
+        <span>FizzBuzz(15) ➞ "FizzBuzz"</span><br />
+        <span>FizzBuzz(4) ➞ "4"</span><br />
+    </div>
+    <div style="margin-top:20px;">
+        @using (Html.BeginForm("Index", "FizzBuzz", FormMethod.Post, new { @id = "myform" }))
+        {
+            <div class="form-group">
+                <label for="monthNumber">Please enter number below </label>
+                @Html.TextBoxFor(m => m.number, null, new { @class = "form-control", @id = "number" })
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-default" onclick="clearform()">Clear</button>
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.Result))
+        {
+            <div id="result">
+                <hr style="border:1px dotted #000!important" />
+                <div class="form-group">
+                    <label>See result below </label>
+                    <div><code>"@Model.Result"</code></div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#collapseMenu").addClass("in");
+            $(".list-group-item").removeClass("active-problem");
+            $("#FizzBuzz").addClass("active-problem");
+
+            // Validate monthNumber
+            $('#myform').validate({ // initialize the plugin
+                errorClass: "error fail-alert",
+                validClass: "valid success-alert",
+                rules: {
+                    number: {
+                        required: true,
+                        number: true,
+                        min: 1
+                    }
+                },
+                messages: {
+                    month: {
+                        min: "Please enter number greater than 1."
+                    },
+                }
+            });
+        });
+
+        function clearform() {
+            $("#number").val(0);
+            $("#result").html("");
+        }
+    </script>
+}
