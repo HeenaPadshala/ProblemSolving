@@ -7,7 +7,7 @@
 }
 
 <div class="container">
-    <h2>Get Array of Multiples</h2>
+    <h3>Get Array of Multiples</h3>
     <div>
         <p><span>Create a function that takes two numbers as arguments (</span><code>num</code><span>, </span><code>length</code><span>) and returns an array of multiples of </span><code>num</code><span> until the array length reaches </span><code>length</code><span>.</span></p>
         <h3><span>Examples</span></h3>
@@ -29,22 +29,37 @@
             <button type="submit" class="btn btn-primary">Submit</button>
             <button type="button" class="btn btn-default" onclick="clearform()">Clear</button>
         }
-        @if (Model.arrayResult.Length > 0)
-        {
-            <div id="result">
-                <hr style="border:1px dotted #000!important" />
-                <div class="form-group">
-                    <label>See result below </label>
-                    <div><code>@string.Format("ArrayOfMultiples ({0}, {1}) ➞ [{2}]", @Model.number, @Model.length, string.Join(", ", @Model.arrayResult))</code></div>
+    </div>
+
+    <!-- Modal Result HTML -->
+    <div id="ResultModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    @if (Model.arrayResult.Length > 0)
+                    {
+                        <div id="result">
+                            <div class="form-group">
+                                <label>See result below </label>
+                                <div><code>@string.Format("ArrayOfMultiples ({0}, {1}) ➞ [{2}]", @Model.number, @Model.length, string.Join(", ", @Model.arrayResult))</code></div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-        }
+        </div>
     </div>
 </div>
 @section scripts{
     <script>
         $(document).ready(function () {
-
+            @if (Model.arrayResult.Length > 0)
+            {
+                <text>$("#ResultModal").modal('show');</text>
+            }
             $("#collapseMenu").addClass("in");
             $(".list-group-item").removeClass("active-problem");
             $("#ArrayofMultiples").addClass("active-problem");

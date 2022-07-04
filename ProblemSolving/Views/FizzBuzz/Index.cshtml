@@ -7,7 +7,7 @@
 }
 
 <div class="container">
-    <h2>FizzBuzz Interview Question</h2>
+    <h3>FizzBuzz Interview Question</h3>
     <div>
         <p><span>Create a function that takes a number as an argument and returns </span><code>"Fizz"</code><span>, </span><code>"Buzz"</code><span> or </span><code>"FizzBuzz"</code><span>.</span></p>
         <ul>
@@ -33,16 +33,28 @@
             <button type="submit" class="btn btn-primary">Submit</button>
             <button type="button" class="btn btn-default" onclick="clearform()">Clear</button>
         }
-        @if (!string.IsNullOrWhiteSpace(Model.Result))
-        {
-            <div id="result">
-                <hr style="border:1px dotted #000!important" />
-                <div class="form-group">
-                    <label>See result below </label>
-                    <div><code>"@Model.Result"</code></div>
+    </div>
+
+    <!-- Modal Result HTML -->
+    <div id="ResultModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    @if (!string.IsNullOrWhiteSpace(Model.Result))
+                    {
+                        <div id="result">
+                            <div class="form-group">
+                                <label>See result below </label>
+                                <div><code>@Model.Result</code></div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-        }
+        </div>
     </div>
 </div>
 @section scripts{
@@ -51,7 +63,10 @@
             $("#collapseMenu").addClass("in");
             $(".list-group-item").removeClass("active-problem");
             $("#FizzBuzz").addClass("active-problem");
-
+            @if (!string.IsNullOrWhiteSpace(Model.Result))
+            {
+                <text>$("#ResultModal").modal('show');</text>
+            }
             // Validate monthNumber
             $('#myform').validate({ // initialize the plugin
                 errorClass: "error fail-alert",

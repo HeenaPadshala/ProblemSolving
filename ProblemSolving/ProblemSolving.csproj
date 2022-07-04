@@ -127,6 +127,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EqualityCheck.cs" />
     <Compile Include="Models\ArrayofMultiples.cs" />
     <Compile Include="Models\FizzBuzz.cs" />
     <Compile Include="Models\GetMonthNameByNumber.cs" />

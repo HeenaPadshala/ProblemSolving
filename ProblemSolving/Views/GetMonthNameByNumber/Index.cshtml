@@ -7,7 +7,7 @@
 }
 
 <div class="container">
-    <h2>Convert Number to Corresponding Month Name</h2>
+    <h3>Convert Number to Corresponding Month Name</h3>
     <div>
         <p><span>Create a function that takes a number (from 1 to 12) and returns its corresponding month name as a string. For example, if you're given </span><code>3</code><span> as input, your function should return </span><code>"March"</code><span>, because March is the 3rd month.</span></p>
         <table>
@@ -83,32 +83,47 @@
             <button type="submit" class="btn btn-primary">Submit</button>
             <button type="button" class="btn btn-default" onclick="clearform()">Clear</button>
         }
-        @if (!string.IsNullOrWhiteSpace(Model.fullMonthName) || !string.IsNullOrWhiteSpace(Model.fullMonthName))
-        {
-            <div id="result">
-                <hr style="border:1px dotted #000!important" />
-                <div class="form-group">
-                    <label>See result below </label>
-                    @if (!string.IsNullOrWhiteSpace(Model.fullMonthName))
+    </div>
+
+    <!-- Modal Result HTML -->
+    <div id="ResultModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    @if (!string.IsNullOrWhiteSpace(Model.fullMonthName) || !string.IsNullOrWhiteSpace(Model.fullMonthName))
                     {
-                        <div>Full Month : <code>@Model.fullMonthName</code></div>
-                    }
-                    @if (!string.IsNullOrWhiteSpace(Model.fullMonthName))
-                    {
-                        <div>Abbreviated Month : <code>@Model.AbbreviatedMonthName</code></div>
+                        <div id="result">
+                            <div class="form-group">
+                                <label>See result below </label>
+                                @if (!string.IsNullOrWhiteSpace(Model.fullMonthName))
+                                {
+                                    <div>Full Month : <code>@Model.fullMonthName</code></div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(Model.fullMonthName))
+                                {
+                                    <div>Abbreviated Month : <code>@Model.AbbreviatedMonthName</code></div>
+                                }
+                            </div>
+                        </div>
                     }
                 </div>
             </div>
-        }
+        </div>
     </div>
 </div>
 @section scripts{
     <script>
         $(document).ready(function () {
+            @if (!string.IsNullOrWhiteSpace(Model.fullMonthName) || !string.IsNullOrWhiteSpace(Model.fullMonthName))
+            {
+                <text>$("#ResultModal").modal('show');</text>
+            }
             $("#collapseMenu").addClass("in");
             $(".list-group-item").removeClass("active-problem");
             $("#GetMonthNameByNumber").addClass("active-problem");
-
             // Validate monthNumber
             $('#myform').validate({ // initialize the plugin
                 errorClass: "error fail-alert",
